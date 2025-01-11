@@ -27,7 +27,6 @@ import { File, Pencil, Plus, ShieldCheck, Verified } from "lucide-react";
 // import DeleteF from "../[i_id]/_component/delete";
 import Delete from "./delete";
 import AddSection from "./addSection";
-import { useState } from "react";
 export default async function Language({
   id,
   e_id,
@@ -43,7 +42,6 @@ export default async function Language({
     day: "numeric",
   };
 
-  const [open, setOpen] = useState(false);
   return items && items.length > 0 ? (
     <>
       <Card>
