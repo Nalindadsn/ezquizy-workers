@@ -14,7 +14,7 @@ interface PostsEditProps {
   };
 }
 
-export default async function PostsEdit({ params }: PostsEditProps) {
+export default async function PostsEdit({ params }: any) {
   // const { i_id } = params;
   const { id } = await params;
 

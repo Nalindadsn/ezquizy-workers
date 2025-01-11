@@ -11,7 +11,7 @@ interface PostsEditProps {
   };
 }
 
-async function page({ params }: PostsEditProps) {
+async function page({ params }: any) {
   const { id } = params;
   console.log(id);
   // const post:any = await fetchUserById(id)
