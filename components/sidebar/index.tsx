@@ -4,11 +4,6 @@ import { Navbar } from "./navbar";
 import { getData } from "./routeData";
 import { SecondNav } from "./secondNav";
 
-type Props = {
-  id: string;
-  type: "agency" | "subaccount";
-};
-
 const Sidebar = async (data?: any, cId?: any) => {
   const dataU: any = await getData("6717bf00391027592347633a");
 

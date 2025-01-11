@@ -9,20 +9,17 @@ import {
   CircleDollarSign,
   Coins,
   Compass,
-  Currency,
   LayoutDashboardIcon,
   List,
   Menu,
   NotepadText,
   Pen,
-  PlusCircleIcon,
   Settings,
   Tag,
   User,
 } from "lucide-react";
 import clsx from "clsx";
 import { AspectRatio } from "../ui/aspect-ratio";
-import Image from "next/image";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { usePathname } from "next/navigation";
 
@@ -36,7 +33,6 @@ import {
 } from "../ui/command";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
-import { useModal } from "@/providers/modal-provider";
 import { Separator } from "../ui/separator";
 import { icons } from "@/lib/constants";
 
@@ -48,15 +44,9 @@ interface SubAcc {
   id: string;
 }
 const MenuOptions = ({
-  details,
-  id,
-  sidebarLogo,
-  sidebarOpt,
-  subAccounts,
   user,
   defaultOpen,
-  data,
-  cId,
+
   dataV,
 }: {
   details?: any;
@@ -120,7 +110,7 @@ const MenuOptions = ({
         },
       ];
 
-  const { setOpen } = useModal();
+  // const { setOpen }: any = useModal();
   const [isMounted, setIsMounted] = useState(false);
   const pathname = usePathname();
 
