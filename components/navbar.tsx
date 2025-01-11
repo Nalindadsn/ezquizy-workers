@@ -1,12 +1,6 @@
 "use client";
 
-export const Navbar = ({
-  dataV,
-  isLoading,
-}: {
-  dataV?: any;
-  isLoading?: any;
-}) => {
+export const Navbar = ({ dataV, isLoading }: any) => {
   console.log(dataV, isLoading);
   return (
     <nav className=" shadow-md py-5 border-b-default border-solid border-gray-200 z-10 w-full bg-inherit flex justify-between">
