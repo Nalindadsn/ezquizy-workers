@@ -53,8 +53,6 @@ import { Loader2, Plus } from "lucide-react";
 const AddSection = (obj: any, initialData: any) => {
   const [open, setOpen] = useState(false);
 
-  const user: any = useCurrentUser();
-
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   // const { update } = useSession();

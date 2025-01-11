@@ -1,7 +1,6 @@
 // import { fetchUserById } from "@/db/queries/users";
 // import UserCard from "../../_component/user-card";
-import { Badge } from "@/components/ui/badge";
-import LayoutPr from "../../layoutPr";
+
 import List from "../_components/list";
 import { list } from "../actions/list";
 import { fetchById } from "./db/queries/fetch";
@@ -17,7 +16,7 @@ interface PostsEditProps {
 
 export default async function PostsEdit({ params }: PostsEditProps) {
   // const { i_id } = params;
-  const { id } = params;
+  const { id } = await params;
 
   const post = await fetchById(id);
 

@@ -83,7 +83,7 @@ const EditSection = ({ obj, data }: any) => {
     tagsAll.push({ label: "tag4", value: "tag4" });
   };
 
-  let tagAll: any = [];
+  const tagAll: any = [];
   data?.allTags.map((x: any, index: number) =>
     tagAll.push({
       id: index,
