@@ -1,0 +1,623 @@
+// prisma/schema.prisma
+datasource db {
+  // provider  = "postgresql"
+  // url       = env("DATABASE_URL")
+  // directUrl = env("DIRECT_URL")
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+model User {
+  id                    String                 @id @default(auto()) @map("_id") @db.ObjectId
+  name                  String?
+  fullName              String?
+  nameWithInitials      String?
+  firstName             String?
+  description           String?
+  lastName              String?
+  middleName            String?
+  nic                   String?
+  passport              String?
+  dob                   DateTime?
+  gender                String?
+  nationality           String?
+  religion              String?
+  email                 String?                @unique
+  emailVerified         DateTime?
+  image                 String?
+  password              String?
+  maritalStatus         String                 @default("unmarried")
+  role                  UserRole               @default(USER)
+  accounts              Account[]
+  isTwoFactorEnabled    Boolean                @default(false)
+  twoFactorConfirmation TwoFactorConfirmation?
+  workingExperience     WorkingExperience[]
+  address               Address[]
+  contactNumbers        ContactNumbers[]
+  socialLinks           SocialLinks[]
+  languageProficiency   LanguageProficiency[]
+  course                Course[]
+  organization          Organization[]
+  quizzes               Quizzes[]
+  quizzesAssigned       QuizzesAssigned[]
+  userTag               UserTag[]
+
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  quizResults QuizResult[]
+  skill       Skill[]
+}
+
+model Skill {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  skill  String?
+  points String?
+  userId String? @db.ObjectId
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Organization {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  name        String?
+  description String?
+  email       String?
+  image       String?
+  userId      String?    @db.ObjectId
+  user        User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  orgUser     OrgUser[]
+  pool        Pool[]
+  expenses    Expenses[]
+}
+
+model Quizzes {
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  name            String?
+  description     String?
+  image           String?
+  userId          String?           @db.ObjectId
+  user            User?             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status          String?
+  quizzesSection  QuizzesSection[]
+  quizResult      QuizResult[]
+  questions       Questions[]
+  quizzesAssigned QuizzesAssigned[]
+  quizCategory    QuizCategory[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+}
+
+model QuizzesAssigned {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  userId String? @db.ObjectId
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  quizzId String?  @db.ObjectId
+  quizz   Quizzes? @relation(fields: [quizzId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model QuizCategory {
+  id   String  @id @default(auto()) @map("_id") @db.ObjectId
+  name String?
+
+  quizzId String?  @db.ObjectId
+  quizz   Quizzes? @relation(fields: [quizzId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model QuizzesSection {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  name         String?
+  description  String?
+  type         String?
+  defaultsTags String[]
+  allTags      String[]
+
+  quizzId    String       @db.ObjectId
+  quizz      Quizzes      @relation(fields: [quizzId], references: [id], onDelete: Cascade)
+  questions  Questions[]
+  quizResult QuizResult[]
+  userTag    UserTag[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Questions {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String?
+  description String?
+
+  quizzesId String?  @db.ObjectId
+  Quizzes   Quizzes? @relation(fields: [quizzesId], references: [id], onDelete: Cascade)
+
+  quizzesSectionId String            @db.ObjectId
+  QuizzesSection   QuizzesSection    @relation(fields: [quizzesSectionId], references: [id], onDelete: Cascade)
+  questionOptions  QuestionOptions[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+}
+
+model UserTag {
+  id   String   @id @default(auto()) @map("_id") @db.ObjectId
+  tags String[]
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  quizzesSectionId String         @db.ObjectId
+  QuizzesSection   QuizzesSection @relation(fields: [quizzesSectionId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model QuestionOptions {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String?
+  description String?
+
+  tag    String  @default("OTHER")
+  subTag String?
+
+  anTime            Int                 @default(25)
+  points            Int                 @default(1)
+  questionsId       String              @db.ObjectId
+  Questions         Questions           @relation(fields: [questionsId], references: [id], onDelete: Cascade)
+  answers           Answers[]
+  answerOptions     AnswerOptions[]
+  userAnswerOptions UserAnswerOptions[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+}
+
+model Answers {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String?
+  description String?
+
+  questionOptionsId String?          @db.ObjectId
+  questionOptions   QuestionOptions? @relation(fields: [questionOptionsId], references: [id], onDelete: Cascade)
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+}
+
+model AnswerOptions {
+  id                String           @id @default(auto()) @map("_id") @db.ObjectId
+  name              String?
+  trueOrFalse       Boolean          @default(false)
+  questionOptionsId String?          @db.ObjectId
+  questionOptions   QuestionOptions? @relation(fields: [questionOptionsId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrgUser {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  name       String?
+  firstName  String?
+  lastName   String?
+  middleName String?
+  nic        String?
+
+  nationality String?
+  religion    String?
+  gender      String?
+  email       String?
+
+  dob   DateTime?
+  image String?
+
+  // role          UserRole  @default(USER)
+
+  maritalStatus String        @default("unmarried")
+  orgId         String?       @db.ObjectId
+  organization  Organization? @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  // isTwoFactorEnabled Boolean @default(false)
+  attendance             Attendance[]
+  orgWorkingExperience   OrgWorkingExperience[]
+  orgAddress             OrgAddress[]
+  orgContactNumbers      OrgContactNumbers[]
+  orgSocialLinks         OrgSocialLinks[]
+  orgLanguageProficiency OrgLanguageProficiency[]
+  orgCourse              OrgCourse[]
+  userPool               UserPool[]
+  createdAt              DateTime                 @default(now())
+  updatedAt              DateTime                 @updatedAt
+}
+
+model LanguageProficiency {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  title     String
+  score     String?
+  content   String?
+  reading   String?
+  spoken    String?
+  writing   String?
+  listening String?
+
+  lastValidDate DateTime?
+  institute     String?
+  userId        String?   @db.ObjectId
+  user          User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  published     Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model OrgLanguageProficiency {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  title     String
+  score     String?
+  content   String?
+  reading   String?
+  spoken    String?
+  writing   String?
+  listening String?
+
+  institute String?
+  userId    String?  @db.ObjectId
+  orgUser   OrgUser? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactNumbers {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  countryCode String?
+  number      String?
+  isWhatsapp  Boolean @default(false)
+  isTelegram  Boolean @default(false)
+  isImo       Boolean @default(false)
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model OrgContactNumbers {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  countryCode String?
+  number      String?
+  isWhatsapp  Boolean @default(false)
+  isTelegram  Boolean @default(false)
+  isImo       Boolean @default(false)
+
+  userId  String  @db.ObjectId
+  orgUser OrgUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model SocialLinks {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  name     String?
+  link     String?
+  username String?
+  nickname String?
+  desc     String?
+  userId   String  @db.ObjectId
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model OrgSocialLinks {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  name     String?
+  link     String?
+  username String?
+  nickname String?
+  desc     String?
+
+  userId  String  @db.ObjectId
+  orgUser OrgUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Course {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  institute String?
+  section   String?
+  indexNo   String?
+  year      String?
+  years     String?
+  months    String? @default("0")
+  medium    String? @default("0")
+
+  rank       String?
+  gpa        String?
+  percentage String?
+  creadits   String?
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  note      String?
+  status    String?
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrgCourse {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  institute String?
+  section   String?
+  indexNo   String?
+  year      String?
+  years     String?
+  months    String? @default("0")
+  medium    String? @default("0")
+
+  rank       String?
+  gpa        String?
+  percentage String?
+  creadits   String?
+
+  userId  String  @db.ObjectId
+  orgUser OrgUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  note      String?
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CourseSubject {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  subject   String?
+  grade     String?
+  semester  String?
+  mark      String?
+  published Boolean @default(true)
+}
+
+model WorkingExperience {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  description String?
+  startDate   DateTime?
+  endDate     DateTime?
+  country     String?
+  position    String?
+  place       String?
+  city        String?
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  status String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OrgWorkingExperience {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  description String?
+  startDate   DateTime?
+  endDate     DateTime?
+  country     String?
+  position    String?
+  place       String?
+  city        String?
+
+  userId  String  @db.ObjectId
+  orgUser OrgUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  status String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Address {
+  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  name            String?
+  addressLine1    String?
+  addressLine2    String?
+  city            String?
+  stateOrProvince String?
+  postalCode      String?
+  country         String?
+  telephone       String?
+  fax             String?
+  vatNo           String?
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model OrgAddress {
+  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  name            String?
+  addressLine1    String?
+  addressLine2    String?
+  city            String?
+  stateOrProvince String?
+  postalCode      String?
+  country         String?
+  telephone       String?
+  fax             String?
+  vatNo           String?
+
+  userId  String  @db.ObjectId
+  orgUser OrgUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model VerificationToken {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model PasswordResetToken {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorToken {
+  id      String   @id @default(auto()) @map("_id") @db.ObjectId
+  email   String
+  token   String   @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorConfirmation {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId])
+}
+
+model Pool {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name String?
+  note String?
+
+  orgId        String?       @db.ObjectId
+  organization Organization? @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  userPool   UserPool[]
+  attendance Attendance[]
+}
+
+model UserPool {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  note String?
+
+  userId  String?  @db.ObjectId
+  orgUser OrgUser? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  poolId String? @db.ObjectId
+  pool   Pool?   @relation(fields: [poolId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Attendance {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  note    String?
+  inOutAt DateTime?
+  type    String?
+
+  userId  String?  @db.ObjectId
+  orgUser OrgUser? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  poolId String? @db.ObjectId
+  pool   Pool?   @relation(fields: [poolId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, poolId])
+}
+
+model Expenses {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  tag         String?
+  description String?
+  // user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  orgId        String?       @db.ObjectId
+  organization Organization? @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  amount      String?
+  note        String?
+  discount    String?
+  image       String?
+  category    String?
+  isCompleted Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model QuizResult {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String?  @db.ObjectId
+  user           User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quizScore      Int      @default(0)
+  correctAnswers Int      @default(0)
+  wrongAnswers   Int      @default(0)
+  skiped         Int      @default(0)
+  tags           String[]
+  quizzId        String?  @db.ObjectId
+  quizzes        Quizzes? @relation(fields: [quizzId], references: [id], onDelete: Cascade)
+
+  quizzesSectionId String?         @db.ObjectId
+  quizzesSection   QuizzesSection? @relation(fields: [quizzesSectionId], references: [id], onDelete: Cascade)
+
+  userAnswerOptions UserAnswerOptions[]
+  createdAt         DateTime            @default(now())
+}
+
+model UserAnswerOptions {
+  id                String           @id @default(auto()) @map("_id") @db.ObjectId
+  correctAnswer     String?
+  givenAnswer       String?
+  trueOrFalse       Boolean          @default(false)
+  questionOptionsId String?          @db.ObjectId
+  questionOptions   QuestionOptions? @relation(fields: [questionOptionsId], references: [id], onDelete: Cascade)
+  quizResultId      String?          @db.ObjectId
+  quizResult        QuizResult?      @relation(fields: [quizResultId], references: [id], onDelete: Cascade)
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+}
