@@ -10,11 +10,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ToolbarButton } from "../toolbar-button";
 import { ShortcutKey } from "../shortcut-key";
-import { JSX } from "react";
 
 interface TextStyle {
   label: string;
-  element: keyof JSX.IntrinsicElements;
+  element: any;
   level?: Level;
   className: string;
   shortcut: string[];
