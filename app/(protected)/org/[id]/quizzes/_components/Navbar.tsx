@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 // import { MdQuiz } from "react-icons/md";
-import UserMenu from "./UserMenu";
 
 const Navbar = () => {
   return (
@@ -20,9 +19,7 @@ const Navbar = () => {
           </span>
         </div>
 
-        <div className="flex items-center gap-3 justify-end">
-          <UserMenu />
-        </div>
+        <div className="flex items-center gap-3 justify-end"></div>
       </div>
     </div>
   );
