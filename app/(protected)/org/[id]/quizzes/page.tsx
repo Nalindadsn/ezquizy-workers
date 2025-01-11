@@ -22,18 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Add from "./_components/add";
 // import { RegisterForm } from "./_components/register-form";
-export default async function Home({
-  searchParams,
-  params,
-}: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-    limit?: string;
-    type?: any;
-  };
-  params: any;
-}) {
+export default async function Home({ searchParams, params }: any) {
   const search = (await searchParams?.query) || "";
   const currentPage = Number(await searchParams?.page) || 1;
   const limit = Number(await searchParams?.limit) || 20;
