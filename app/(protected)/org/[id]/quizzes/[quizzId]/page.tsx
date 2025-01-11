@@ -1,0 +1,27 @@
+import React, { Suspense } from 'react'
+import { fetchById } from '../actions/list'
+
+
+import { DrawerSec } from './Drawer';
+async function page({ params, searchParams }: any) {
+
+    const items: any = await fetchById(params?.quizzId)
+    const filterById = items.quizzesSection.filter((i: any) => i?.id == searchParams?.section)
+    // const quOnlyArr: any = []
+    // items?.quizzesSection.map((i: any) => i.questions.map((x: any) => quOnlyArr.push(x)))
+
+    return (
+        <div>
+            <Suspense fallback="Loading...">
+
+                <DrawerSec orgId={params?.id} quizzId={params?.quizzId} sectionParamsId={searchParams?.section} items={items} data={filterById} />
+
+            </Suspense>
+
+
+
+        </div>
+    )
+}
+
+export default page
