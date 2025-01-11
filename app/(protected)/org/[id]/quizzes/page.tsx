@@ -23,12 +23,12 @@ import { Label } from "@/components/ui/label";
 import Add from "./_components/add";
 // import { RegisterForm } from "./_components/register-form";
 export default async function Home({ searchParams, params }: any) {
-  const search = (await searchParams?.query) || "";
-  const currentPage = Number(await searchParams?.page) || 1;
-  const limit = Number(await searchParams?.limit) || 20;
-  const type = await searchParams?.type;
+  const search = (await searchParams)?.query || "";
+  const currentPage = Number((await searchParams)?.page) || 1;
+  const limit = Number((await searchParams)?.limit) || 20;
+  const type = (await searchParams)?.type;
   const offset = (currentPage - 1) * limit;
-  const { id } = params;
+
   const { data, totalPages }: any = await GetPokemons({
     offset,
     limit,
@@ -55,7 +55,7 @@ export default async function Home({ searchParams, params }: any) {
       </div>
 
       <Suspense key={search + currentPage} fallback={<SkeletonCardList />}>
-        <CardList data={data} orgId={params?.id} />
+        <CardList data={data} orgId={(await params)?.id} />
       </Suspense>
     </>
   );
