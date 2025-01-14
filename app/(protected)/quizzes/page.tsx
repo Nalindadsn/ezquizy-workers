@@ -1,26 +1,13 @@
 import { Suspense } from "react";
 
 // import prismadb from "@/lib/prismadb"
-import Link from "next/link";
 
 import { GetPokemons } from "./_actions";
 import CardList from "./_components/card-list";
 import Pagination from "./_components/pagination";
 import SearchPokemon from "./_components/search";
 import SkeletonCardList from "./_components/skeleton";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { RegisterForm } from "./_components/register-form";
+
 export default async function Home({
   searchParams,
   params,
