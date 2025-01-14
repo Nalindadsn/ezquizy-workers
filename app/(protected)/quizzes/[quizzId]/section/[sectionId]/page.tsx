@@ -1,17 +1,4 @@
-import Link from "next/link";
-import Quiz from "./_components/Quiz";
-// import { client } from "@/sanity/lib/client";
-// import { fetchUsers } from "../(auth)/actions/fetchUsers";
-import { Button } from "@/components/ui/button";
 import { fetchById } from "../../../actions/list";
-import { Separator } from "@/components/ui/separator";
-import Arr from "./Arr";
-import { CheckIcon, Pen, Play, RefreshCcw, StopCircleIcon } from "lucide-react";
-
-import MultiSelect from "./MultiSelect";
-import { Badge } from "@/components/ui/badge";
-import Ldata from "./l1";
-import { Suspense } from "react";
 
 export const dynamic = "force-dynamic";
 
