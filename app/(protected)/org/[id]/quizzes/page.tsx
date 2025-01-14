@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+
 import Add from "./_components/add";
 // import { RegisterForm } from "./_components/register-form";
 export default async function Home({ searchParams, params }: any) {
@@ -42,6 +43,7 @@ export default async function Home({ searchParams, params }: any) {
         <h1 className="text-indigo-600 ml-2 font-bold mb-4 text-3xl">
           All Quizzes
         </h1>
+        <Add />
       </div>
       <div className=" md:flex w-full mb-5">
         <div className="  w-full  w-full">
