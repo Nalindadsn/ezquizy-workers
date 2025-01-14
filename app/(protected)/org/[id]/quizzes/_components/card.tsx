@@ -15,7 +15,6 @@ import EditQuiz from "./edit";
 export default function PokemonCard({ data, orgId }: IPokemon) {
   return (
     <>
-      {JSON.stringify(data, null, 2)}
       <Card key={data?.id}>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium"></CardTitle>
