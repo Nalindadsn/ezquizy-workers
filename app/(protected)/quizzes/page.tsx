@@ -20,12 +20,12 @@ export default async function Home({
   };
   params: any;
 }) {
-  const search = searchParams?.query || "";
-  const currentPage = Number(searchParams?.page) || 1;
-  const limit = Number(searchParams?.limit) || 20;
-  const type = searchParams?.type;
+  const search = (await searchParams)?.query || "";
+  const currentPage = Number((await searchParams)?.page) || 1;
+  const limit = Number((await searchParams)?.limit) || 20;
+  const type = (await searchParams)?.type;
   const offset = (currentPage - 1) * limit;
-  const { id } = params;
+  const { id } = await params;
   const { data, totalPages }: any = await GetPokemons({
     offset,
     limit,
