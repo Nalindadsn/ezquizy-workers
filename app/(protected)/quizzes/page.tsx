@@ -8,18 +8,7 @@ import Pagination from "./_components/pagination";
 import SearchPokemon from "./_components/search";
 import SkeletonCardList from "./_components/skeleton";
 
-export default async function Home({
-  searchParams,
-  params,
-}: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-    limit?: string;
-    type?: any;
-  };
-  params: any;
-}) {
+export default async function Home({ searchParams, params }: any) {
   const search = (await searchParams)?.query || "";
   const currentPage = Number((await searchParams)?.page) || 1;
   const limit = Number((await searchParams)?.limit) || 20;
