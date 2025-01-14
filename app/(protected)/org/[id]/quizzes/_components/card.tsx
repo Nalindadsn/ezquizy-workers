@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowBigRightDash, FileWarning } from "lucide-react";
 import Delete from "./delete";
 import EditQuiz from "./edit";
+import JsonA from "./jsonA";
 export default function PokemonCard({ data, orgId }: IPokemon) {
   return (
     <>
@@ -28,6 +29,7 @@ export default function PokemonCard({ data, orgId }: IPokemon) {
             <Link key={data?.id} href={`/quizzes/${data?.id}`} className="">
               {data?.name}
             </Link>
+            <JsonA />
           </div>
 
           {/* <span className="text-xs text-gray-500">id: {data?.id}</span> */}
@@ -45,6 +47,7 @@ export default function PokemonCard({ data, orgId }: IPokemon) {
               >
                 <div className="w-full ">
                   {x?.name}
+
                   <p className=" text-xs text-muted-foreground"></p>
                   {x?.allTags.map((i: any) => {
                     return (
