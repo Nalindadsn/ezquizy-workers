@@ -4,7 +4,6 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTransition, useState } from "react";
-import { useSession } from "next-auth/react";
 
 import { Switch } from "@/components/ui/switch";
 import {
@@ -16,14 +15,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {  UserPoolSchema } from "@/schemas";
-import {
-  Card,
-  CardHeader,
-  CardContent,
-} from "@/components/ui/card";
+import { UserPoolSchema } from "@/schemas";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-
 
 import {
   Form,
@@ -31,11 +25,9 @@ import {
   FormControl,
   FormItem,
   FormLabel,
-  
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useCurrentUser } from "@/hooks/use-current-user";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { UserRole } from "@prisma/client";
@@ -50,11 +42,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 import { Pin } from "lucide-react";
-const AddTodo = ({pool,id,data}:{pool:any,id:any,data:any}) => {
-  const user:any = useCurrentUser();
-
+const AddTodo = ({ pool, id, data }: { pool: any; id: any; data: any }) => {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const { update } = useSession();
@@ -63,63 +53,62 @@ const AddTodo = ({pool,id,data}:{pool:any,id:any,data:any}) => {
   const form = useForm<z.infer<typeof UserPoolSchema>>({
     resolver: zodResolver(UserPoolSchema),
     defaultValues: {
-      userId:undefined,
+      userId: undefined,
       note: undefined,
       poolId: undefined,
-    }
+    },
   });
 
-// alert(JSON.stringify(id))
+  // alert(JSON.stringify(id))
 
   const onSubmit = (values: z.infer<typeof UserPoolSchema>) => {
     startTransition(() => {
-      
       setError("");
       setSuccess("");
-      settings(values,id)
-        .then((data:any) => {
+      settings(values, id)
+        .then((data: any) => {
           if (data.error) {
             toast.error(data.error);
           }
           if (data.success) {
-            
-           
             update();
-            
+
             toast.success(data.success);
             // form.reset()
           }
         })
         .catch(() => toast.error("Something went wrong!"));
     });
-  }
+  };
 
-  return ( 
-
-
-       <Dialog>
+  return (
+    <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="text-white hover:text-white bg-[#050708] hover:bg-[#050708]/90   font-medium rounded-lg text-sm px-2 h-8 text-center inline-flex items-center dark:focus:ring-[#050708]/50 dark:hover:bg-[#050708]/30 me-2 mb-2"><Pin className="w-4 h-4  rotate-45" /></Button>
+        <Button
+          variant="outline"
+          className="text-white hover:text-white bg-[#050708] hover:bg-[#050708]/90   font-medium rounded-lg text-sm px-2 h-8 text-center inline-flex items-center dark:focus:ring-[#050708]/50 dark:hover:bg-[#050708]/30 me-2 mb-2"
+        >
+          <Pin className="w-4 h-4  rotate-45" />
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Pin  User</DialogTitle>
+          <DialogTitle>Pin User</DialogTitle>
           <DialogDescription>
             Make Pin to This profile here. Click save when youre done.
-            <div className=" p-1 bg-gray-800 text-white">Name: {data?.name}<br/>Nic: {data?.nic}<br/>Email: {data?.email}</div> 
-
+            <div className=" p-1 bg-gray-800 text-white">
+              Name: {data?.name}
+              <br />
+              Nic: {data?.nic}
+              <br />
+              Email: {data?.email}
+            </div>
           </DialogDescription>
         </DialogHeader>
 
-     
-
         <Form {...form}>
-          <form 
-            className="space-y-2" 
-            onSubmit={form.handleSubmit(onSubmit)}
-          >
-          
-          <div className="space-y-2">
+          <form className="space-y-2" onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="space-y-2">
               {/* {JSON.stringify(pool)} */}
               <FormField
                 control={form.control}
@@ -128,17 +117,19 @@ const AddTodo = ({pool,id,data}:{pool:any,id:any,data:any}) => {
                   <FormItem>
                     <FormLabel>Pools</FormLabel>
                     <FormControl>
-
-
-<select className="w-full p-2 border "
+                      <select
+                        className="w-full p-2 border "
                         {...field}
-                        disabled={isPending}>
-                          <option  value="">-Select-</option>
+                        disabled={isPending}
+                      >
+                        <option value="">-Select-</option>
 
-                    {pool.map((p:any) => (
-                      <option key={p.id} value={p.id}>{p.name}</option>
-))}
-</select>
+                        {pool.map((p: any) => (
+                          <option key={p.id} value={p.id}>
+                            {p.name}
+                          </option>
+                        ))}
+                      </select>
                       {/* <Input
                         {...field}
                         placeholder="0000.00"
@@ -149,7 +140,6 @@ const AddTodo = ({pool,id,data}:{pool:any,id:any,data:any}) => {
                   </FormItem>
                 )}
               />
-              
             </div>
             <div className="space-y-2">
               <FormField
@@ -169,7 +159,6 @@ const AddTodo = ({pool,id,data}:{pool:any,id:any,data:any}) => {
                   </FormItem>
                 )}
               />
-              
             </div>
             <FormError message={error} />
             <FormSuccess message={success} />
@@ -179,21 +168,15 @@ const AddTodo = ({pool,id,data}:{pool:any,id:any,data:any}) => {
             >
               Save
             </Button> */}
-        <DialogFooter>
-          <Button 
-              disabled={isPending}
-              type="submit">Save changes</Button>
-        </DialogFooter>
+            <DialogFooter>
+              <Button disabled={isPending} type="submit">
+                Save changes
+              </Button>
+            </DialogFooter>
           </form>
         </Form>
-      
-    
-
       </DialogContent>
     </Dialog>
-
-
-
-   );
-}
+  );
+};
 export default AddTodo;
