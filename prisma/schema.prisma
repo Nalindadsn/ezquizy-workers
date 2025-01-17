@@ -81,8 +81,20 @@ model Organization {
 }
 
 model Quizzes {
-  id              String            @id @default(auto()) @map("_id") @db.ObjectId
-  name            String?
+  id   String  @id @default(auto()) @map("_id") @db.ObjectId
+  name String?
+
+  country     String?
+  examination String?
+  grade       String?
+  year        String?
+  medium      String?
+  slug        String?
+  section     String?
+  type        String?
+  category    String?
+  keywords    String?
+
   description     String?
   image           String?
   userId          String?           @db.ObjectId

@@ -47,7 +47,7 @@ const ServerPage = async () => {
               </Link>
             </p>
             <Link
-              href={`/dashboard`}
+              href={`/org/677938ca9ce68b2326c66e6b/quizzes`}
               className="w-full md:w-auto mb-14 inline-flex items-center justify-center py-3 px-7 text-base font-semibold text-center text-white rounded-full bg-indigo-600 shadow-xs hover:bg-indigo-700 transition-all duration-500"
             >
               Dashboard

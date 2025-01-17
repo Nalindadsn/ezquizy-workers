@@ -21,7 +21,32 @@ const page = async ({ params, searchParams }: any) => {
     userId
   );
 
-  return <div className="">{JSON.stringify(items)}</div>;
+  // const data ={
+  //   title: `GCE Advanced Level - Science for Technology 2023(2024)`,
+  // country : "LK"
+  // examination : Term Test
+  // grade : 13
+  // year : 2019
+  // medium : Sinhala
+  // slug: gce-advanced-level-science-for-technology-2023-2024
+  // section: Part 1
+  // type: MCQ
+  // description:
+  // imageUrl: /images/cpp.png
+  // category: [name: "advanced-level" , subCategory :{name: "economics" }]
+  // keywords: ["nextjs14", "nextjs15", "crud", "server action", "nextjs form", ""]
+  // createdAt: "2024/11/27"
+
+  // questions: {}
+  // }
+  return (
+    <>
+      title: {items?.name}
+      <br />
+      questions:
+      <pre className="">{JSON.stringify(items, null, 2)}</pre>
+    </>
+  );
 };
 
 export default page;

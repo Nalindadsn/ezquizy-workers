@@ -1,7 +1,5 @@
 import { Suspense } from "react";
 
-// import prismadb from "@/lib/prismadb"
-
 import { GetPokemons } from "./_actions";
 import CardList from "./_components/card-list";
 import Pagination from "./_components/pagination";
