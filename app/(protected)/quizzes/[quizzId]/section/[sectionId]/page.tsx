@@ -43,6 +43,29 @@ const page = async ({ params, searchParams }: any) => {
     <>
       title: {items?.name}
       <br />
+      country : "LK"
+      <br />
+      examination : Term Test
+      <br />
+      grade : 13
+      <br />
+      year : 2019
+      <br />
+      medium : Sinhala
+      <br />
+      slug: gce-advanced-level-science-for-technology-2023-2024
+      <br />
+      section: Part 1<br />
+      type: MCQ
+      <br />
+      description: <br />
+      imageUrl: /images/cpp.png
+      <br />
+      category:{` [name: "advanced-level" , subCategory :{name: "economics" }]`}
+      <br />
+      keywords: ["nextjs14", "nextjs15", "crud", "server action", "nextjs form",
+      ""]
+      <br />
       questions:
       <pre className="">{JSON.stringify(items, null, 2)}</pre>
     </>
