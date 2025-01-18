@@ -71,7 +71,11 @@ export default function PokemonCard({ data, orgId }: IPokemon) {
           </div>
         </CardHeader>
         <CardContent>
+          <p>
+            Article: {data?.atNo} | {data?.examination}
+          </p>
           <div className=" flex items-center text-2xl font-bold">
+            <br />
             <Link key={data?.id} href={`/quizzes/${data?.id}`} className="">
               {data?.name}
             </Link>
