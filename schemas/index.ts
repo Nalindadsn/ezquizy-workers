@@ -2,77 +2,88 @@ import * as z from "zod";
 import { UserRole } from "@prisma/client";
 
 export const SettingsOrgUserSchema = z.object({
+  fullName: z.optional(z.string()),
+  nameWithInitials: z.optional(z.string()),
+  firstName: z.optional(z.string()),
+  lastName: z.optional(z.string()),
+  middleName: z.optional(z.string()),
+  gender: z.optional(z.string()),
 
-  fullName:z.optional(z.string()),
-  nameWithInitials:z.optional(z.string()),
-  firstName:z.optional(z.string()),
-  lastName:z.optional(z.string()),
-middleName:z.optional(z.string()),
-gender:z.optional(z.string()),
-
-image:z.optional(z.string()),
+  image: z.optional(z.string()),
   name: z.optional(z.string()),
   nic: z.optional(z.string()),
   nationality: z.optional(z.string()),
   religion: z.optional(z.string()),
-  maritalStatus:z.optional(z.string()),
-  dob: z.optional(z.date({
-    required_error: "A date of birth is required.",
-  })),
+  maritalStatus: z.optional(z.string()),
+  dob: z.optional(
+    z.date({
+      required_error: "A date of birth is required.",
+    })
+  ),
   createdAt: z.optional(z.string()),
   email: z.optional(z.string().email()),
   password: z.optional(z.string().min(6)),
   newPassword: z.optional(z.string().min(6)),
-})
-export const SettingsSchema = z.object({
-
-  passport:z.optional(z.string()),
-  fullName:z.optional(z.string()),
-  nameWithInitials:z.optional(z.string()),
-  description:z.optional(z.string()),
-  firstName:z.optional(z.string()),
-  lastName:z.optional(z.string()),
-middleName:z.optional(z.string()),
-gender:z.optional(z.string()),
-emailVerified:z.optional(z.date({
-  required_error: "A date of birth is required.",
-})),
-image:z.optional(z.string()),
-  name: z.optional(z.string()),
-  nic: z.optional(z.string()),
-  nationality: z.optional(z.string()),
-  religion: z.optional(z.string()),
-  maritalStatus:z.optional(z.string()),
-  dob: z.optional(z.date({
-    required_error: "A date of birth is required.",
-  })),
-  createdAt: z.optional(z.string()),
-  isTwoFactorEnabled: z.optional(z.boolean()),
-  role: z.optional(z.enum([UserRole.ADMIN, UserRole.USER])),
-  email: z.optional(z.string().email()),
-  password: z.optional(z.string().min(6)),
-  newPassword: z.optional(z.string().min(6)),
-})
-  .refine((data) => {
-    if (data.password && !data.newPassword) {
-      return false;
-    }
-
-    return true;
-  }, {
-    message: "New password is required!",
-    path: ["newPassword"]
+});
+export const SettingsSchema = z
+  .object({
+    passport: z.optional(z.string()),
+    fullName: z.optional(z.string()),
+    nameWithInitials: z.optional(z.string()),
+    description: z.optional(z.string()),
+    firstName: z.optional(z.string()),
+    lastName: z.optional(z.string()),
+    middleName: z.optional(z.string()),
+    gender: z.optional(z.string()),
+    emailVerified: z.optional(
+      z.date({
+        required_error: "A date of birth is required.",
+      })
+    ),
+    image: z.optional(z.string()),
+    name: z.optional(z.string()),
+    nic: z.optional(z.string()),
+    nationality: z.optional(z.string()),
+    religion: z.optional(z.string()),
+    maritalStatus: z.optional(z.string()),
+    dob: z.optional(
+      z.date({
+        required_error: "A date of birth is required.",
+      })
+    ),
+    createdAt: z.optional(z.string()),
+    isTwoFactorEnabled: z.optional(z.boolean()),
+    role: z.optional(z.enum([UserRole.ADMIN, UserRole.USER])),
+    email: z.optional(z.string().email()),
+    password: z.optional(z.string().min(6)),
+    newPassword: z.optional(z.string().min(6)),
   })
-  .refine((data) => {
-    if (data.newPassword && !data.password) {
-      return false;
-    }
+  .refine(
+    (data) => {
+      if (data.password && !data.newPassword) {
+        return false;
+      }
 
-    return true;
-  }, {
-    message: "Password is required!",
-    path: ["password"]
-  })
+      return true;
+    },
+    {
+      message: "New password is required!",
+      path: ["newPassword"],
+    }
+  )
+  .refine(
+    (data) => {
+      if (data.newPassword && !data.password) {
+        return false;
+      }
+
+      return true;
+    },
+    {
+      message: "Password is required!",
+      path: ["password"],
+    }
+  );
 
 export const NewPasswordSchema = z.object({
   password: z.string().min(6, {
@@ -111,7 +122,7 @@ export const RegisterOrgUserSchema = z.object({
   email: z.string().email({
     message: "Email is required",
   }),
- 
+
   name: z.string().min(1, {
     message: "Name is required",
   }),
@@ -125,7 +136,6 @@ export const OrgCreateSchema = z.object({
   description: z.string().min(1, {
     message: "This field is required",
   }),
-
 });
 
 export const QuizCreateSchema = z.object({
@@ -133,14 +143,15 @@ export const QuizCreateSchema = z.object({
     message: "This field is required",
   }),
 
-  anTime:  z.optional(z.string()),
-  
-  tag:  z.optional(z.string()),
-  subTag:  z.optional(z.string()),
+  anTime: z.optional(z.string()),
 
-  description: z.optional(z.string())
+  tag: z.optional(z.string()),
+  subTag: z.optional(z.string()),
+
+  description: z.optional(z.string()),
+
+  country: z.optional(z.string()),
 });
-
 
 export const LanguagesSchema = z.object({
   name: z.string().min(1, {
@@ -150,17 +161,17 @@ export const LanguagesSchema = z.object({
   description: z.string().min(1, {
     message: "Minimum of 6 characters required",
   }),
-  user_id: z.optional(z.string().min(1, {
-    message: "This field is required",
-  })),
+  user_id: z.optional(
+    z.string().min(1, {
+      message: "This field is required",
+    })
+  ),
 });
-
 
 export const TodosDelSchema = z.object({
   inputId: z.string().min(1, {
     message: " required field",
   }),
-
 });
 export const TodosSchema = z.object({
   input: z.string().min(1, {
@@ -172,18 +183,20 @@ export const TodosSchema = z.object({
   }),
 });
 
-
 export const UserPoolSchema = z.object({
-  userId: z.optional(z.string().min(1, {
-    message: "This field is required",
-  })),
+  userId: z.optional(
+    z.string().min(1, {
+      message: "This field is required",
+    })
+  ),
   poolId: z.string().min(1, {
     message: "This field is required",
   }),
-  note: z.optional(z.string().min(1, {
-    message: "This field is required",
-  })),
-
+  note: z.optional(
+    z.string().min(1, {
+      message: "This field is required",
+    })
+  ),
 });
 
 export const PoolSchema = z.object({
@@ -191,11 +204,12 @@ export const PoolSchema = z.object({
     message: "This field is required",
   }),
 
-  note: z.optional(z.string().min(1, {
-    message: "This field is required",
-  })),
+  note: z.optional(
+    z.string().min(1, {
+      message: "This field is required",
+    })
+  ),
 });
-
 
 export const TodosEdit1Schema = z.object({
   inputId: z.string().min(1, {
@@ -204,8 +218,6 @@ export const TodosEdit1Schema = z.object({
   newTitle: z.string().min(1, {
     message: "required",
   }),
-
-
 });
 export const TodosEdit2Schema = z.object({
   inputId: z.string().min(1, {
@@ -214,8 +226,6 @@ export const TodosEdit2Schema = z.object({
   newTitle: z.string().min(1, {
     message: " required field",
   }),
-
-
 });
 export const TodosEdit3Schema = z.object({
   inputId: z.string().min(1, {
@@ -224,51 +234,58 @@ export const TodosEdit3Schema = z.object({
   newTitle: z.string().min(1, {
     message: " required field",
   }),
-
-
 });
 
-
-
-
-
-
-
-
 export const AddressSchema = z.object({
-  name: z.optional(z.string().min(1, {
-    message: "Name is required",
-  })),
-
+  name: z.optional(
+    z.string().min(1, {
+      message: "Name is required",
+    })
+  ),
 
   addressLine1: z.string().min(1, {
     message: "This field is required",
   }),
-  addressLine2: z.optional(z.string().min(1, {
-    message: "This field is required",
-  })),
-  city: z.optional(z.string().min(1, {
-    message: "This field is required",
-  })),
-  stateOrProvince: z.optional(z.string().min(1, {
-    message: "This field is required",
-  })),
-  postalCode: z.optional(z.string().min(1, {
-    message: "This field is required",
-  })),
-  country: z.optional(z.string().min(1, {
-    message: "This field is required",
-  })),
-  telephone: z.optional(z.string().min(1, {
-    message: "This field is required",
-  })),
-  fax: z.optional(z.string().min(1, {
-    message: "This field is required",
-  })),
-  vatNo: z.optional(z.string().min(1, {
-    message: "This field is required",
-  })),
-
+  addressLine2: z.optional(
+    z.string().min(1, {
+      message: "This field is required",
+    })
+  ),
+  city: z.optional(
+    z.string().min(1, {
+      message: "This field is required",
+    })
+  ),
+  stateOrProvince: z.optional(
+    z.string().min(1, {
+      message: "This field is required",
+    })
+  ),
+  postalCode: z.optional(
+    z.string().min(1, {
+      message: "This field is required",
+    })
+  ),
+  country: z.optional(
+    z.string().min(1, {
+      message: "This field is required",
+    })
+  ),
+  telephone: z.optional(
+    z.string().min(1, {
+      message: "This field is required",
+    })
+  ),
+  fax: z.optional(
+    z.string().min(1, {
+      message: "This field is required",
+    })
+  ),
+  vatNo: z.optional(
+    z.string().min(1, {
+      message: "This field is required",
+    })
+  ),
 });
 
 export const CourseSchema = z.object({
@@ -291,67 +308,64 @@ export const CourseSchema = z.object({
 
   note: z.optional(z.string()),
   status: z.optional(z.string()),
-
-
-
 });
 export const LanguagesProficiencySchema = z.object({
   title: z.string().min(1, {
     message: "Name is required",
   }),
 
-  score  : z.optional(z.string()),
+  score: z.optional(z.string()),
   content: z.optional(z.string()),
   reading: z.optional(z.string()),
   spoken: z.optional(z.string()),
   writing: z.optional(z.string()),
   listening: z.optional(z.string()),
-  institute:  z.optional(z.string()),
+  institute: z.optional(z.string()),
 
-  lastValidDate:  z.optional(z.date()),
-
+  lastValidDate: z.optional(z.date()),
 });
 export const SocialMediaSchema = z.object({
   name: z.string().min(1, {
     message: "Name is required",
   }),
 
-  
-  link:z.string().url().min(1, {
+  link: z.string().url().min(1, {
     message: " This field is required",
   }),
 
-  username:z.optional(z.string()),
+  username: z.optional(z.string()),
 
-  nickname:z.optional(z.string()),
+  nickname: z.optional(z.string()),
 
-  desc:z.optional(z.string()),
+  desc: z.optional(z.string()),
 });
 export const WorkExperienceSchema = z.object({
   description: z.optional(z.string()),
-  startDate :z.optional(z.date({
-    required_error: "A date of birth is required.",
-  })),
-  endDate :z.optional(z.date({
-    required_error: "A date of birth is required.",
-  })),
-  country :z.string().min(1, {
+  startDate: z.optional(
+    z.date({
+      required_error: "A date of birth is required.",
+    })
+  ),
+  endDate: z.optional(
+    z.date({
+      required_error: "A date of birth is required.",
+    })
+  ),
+  country: z.string().min(1, {
     message: " required",
   }),
-  position :z.string().min(1, {
+  position: z.string().min(1, {
     message: " required",
   }),
-  place :z.string().min(1, {
+  place: z.string().min(1, {
     message: " required",
   }),
-  city :z.string().min(1, {
+  city: z.string().min(1, {
     message: " required",
   }),
-  status :z.string().min(1, {
+  status: z.string().min(1, {
     message: " required",
   }),
-
-
 });
 export const ContactNumbersSchema = z.object({
   number: z.string().min(1, {
@@ -363,7 +377,6 @@ export const ContactNumbersSchema = z.object({
   isWhatsapp: z.optional(z.boolean()),
   isTelegram: z.optional(z.boolean()),
   isImo: z.optional(z.boolean()),
-
 });
 export const ExpensesSchema = z.object({
   description: z.string().min(1, {
@@ -373,50 +386,49 @@ export const ExpensesSchema = z.object({
   amount: z.string().min(1, {
     message: "This field is required",
   }),
-  category: z.optional(z.string().min(1, {
-    message: "This field is required",
-  })),
-  tag: z.optional(z.string().min(1, {
-    message: "This field is required",
-  })),
+  category: z.optional(
+    z.string().min(1, {
+      message: "This field is required",
+    })
+  ),
+  tag: z.optional(
+    z.string().min(1, {
+      message: "This field is required",
+    })
+  ),
 });
 
-
 export const AttendanceSchema = z.object({
-  
-  
-  inOutAt:  z.optional(z.date({
-    required_error: " required.",
-  })),
-
+  inOutAt: z.optional(
+    z.date({
+      required_error: " required.",
+    })
+  ),
 });
 export const QuizzesSectionSchema = z.object({
   name: z.string().min(1, {
     message: "This field is required",
   }),
-  description:  z.optional(z.string().min(1, {
-    message: "This field is required",
-  })),
+  description: z.optional(
+    z.string().min(1, {
+      message: "This field is required",
+    })
+  ),
 
   type: z.string().min(1, {
     message: "This field is required",
   }),
-
 });
 export const QuestionSchema = z.object({
   name: z.string().min(1, {
     message: "This field is required",
   }),
-  tag:  z.optional(z.string()),
-  subTag:  z.optional(z.string()),
-  
-  anTime:  z.optional(z.string()),
+  tag: z.optional(z.string()),
+  subTag: z.optional(z.string()),
 
-
+  anTime: z.optional(z.string()),
 });
 export const SkillSchema = z.object({
   skill: z.optional(z.string()),
   points: z.optional(z.string()),
-
-
 });

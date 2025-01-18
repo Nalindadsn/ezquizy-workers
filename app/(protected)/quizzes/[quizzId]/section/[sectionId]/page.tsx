@@ -41,6 +41,9 @@ const page = async ({ params, searchParams }: any) => {
   // }
   return (
     <>
+      {" "}
+      ---
+      <br /># article-{items?.id}.md <br />
       title: {items?.name}
       <br />
       country : "LK"

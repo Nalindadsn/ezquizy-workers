@@ -50,7 +50,7 @@ import {
 } from "@/components/ui/dialog";
 import { Loader2, Plus } from "lucide-react";
 
-const AddSection = (obj: any, initialData: any) => {
+const AddSection = (obj?: any, initialData?: any) => {
   const [open, setOpen] = useState(false);
 
   const [error, setError] = useState<string | undefined>();

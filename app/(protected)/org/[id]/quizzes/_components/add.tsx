@@ -56,6 +56,7 @@ const Add = (id?: any, initialData?: any) => {
     defaultValues: {
       name: id ? id.initialData?.name : undefined,
       description: id ? id.initialData?.description : undefined,
+      country: id ? id.initialData?.country : undefined,
     },
   });
 
@@ -139,6 +140,26 @@ const Add = (id?: any, initialData?: any) => {
                         />
                       </FormControl>
 
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <FormField
+                  control={form.control}
+                  name="country"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Quizz Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder=" country"
+                          disabled={isPending}
+                        />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
