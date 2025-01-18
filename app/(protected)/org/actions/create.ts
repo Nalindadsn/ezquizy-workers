@@ -25,16 +25,6 @@ export const create = async (
     data: {
       name: name,
       description: description,
-      country: country,
-      examination: examination,
-      grade: grade,
-      year: year,
-      medium: medium,
-      slug: slug,
-      section: section,
-      type: type,
-      category: category,
-      keywords: keywords,
 
       userId: "6717bf00391027592347633a",
     },
