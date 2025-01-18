@@ -100,7 +100,13 @@ export default function PokemonCard({ data, orgId }: IPokemon) {
                 className="flex gap-2 border  mb-1 p-2 items-center"
               >
                 <div className="w-full ">
-                  {x?.name}
+                  <Link
+                    key={data?.id}
+                    href={`/quizzes/${data?.id}/section/${x?.id}`}
+                    className=""
+                  >
+                    {x?.name}
+                  </Link>
                   <p className=" text-xs text-muted-foreground"></p>
                   {x?.allTags.map((i: any) => {
                     return (
