@@ -84,6 +84,7 @@ model Quizzes {
   id   String  @id @default(auto()) @map("_id") @db.ObjectId
   name String?
 
+  atNo        String?
   country     String?
   examination String?
   grade       String?

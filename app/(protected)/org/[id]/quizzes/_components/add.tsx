@@ -56,7 +56,7 @@ const Add = (id?: any, initialData?: any) => {
     defaultValues: {
       name: id ? id.initialData?.name : undefined,
       description: id ? id.initialData?.description : undefined,
-      country: id ? id.initialData?.country : undefined,
+      country: "GLOBAL",
       examination: id ? id.initialData?.examination : undefined,
       grade: id ? id.initialData?.grade : undefined,
       year: id ? id.initialData?.year : undefined,

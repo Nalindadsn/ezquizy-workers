@@ -55,6 +55,7 @@ const EditQuiz = ({ id, data }: any) => {
   const form = useForm<z.infer<typeof QuizCreateSchema>>({
     resolver: zodResolver(QuizCreateSchema),
     defaultValues: {
+      atNo: data ? data?.atNo : undefined,
       name: data ? data?.name : undefined,
       description: data ? data?.description : undefined,
 
@@ -113,6 +114,25 @@ const EditQuiz = ({ id, data }: any) => {
 
           <Form {...form}>
             <form className="space-y-2" onSubmit={form.handleSubmit(onSubmit)}>
+              <div className="space-y-2">
+                <FormField
+                  control={form.control}
+                  name="atNo"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Article No</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder=" Article No"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
               <div className="space-y-2">
                 <FormField
                   control={form.control}

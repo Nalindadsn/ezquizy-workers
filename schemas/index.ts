@@ -143,6 +143,7 @@ export const QuizCreateSchema = z.object({
     message: "This field is required",
   }),
 
+  atNo: z.optional(z.string()),
   anTime: z.optional(z.string()),
 
   tag: z.optional(z.string()),
