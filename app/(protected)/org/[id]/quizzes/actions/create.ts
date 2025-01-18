@@ -15,6 +15,17 @@ export const create = async (
   const name = values.name as string;
   const description = values.description as string;
 
+  const country = values.country as string;
+  const examination = values.examination as string;
+  const grade = values.grade as string;
+  const year = values.year as string;
+  const medium = values.medium as string;
+  const slug = values.slug as string;
+  const section = values.section as string;
+  const type = values.type as string;
+  const category = values.category as string;
+  const keywords = values.keywords as string;
+
   if (!name.trim()) {
     return;
   }
@@ -23,6 +34,18 @@ export const create = async (
     data: {
       name: name,
       description: description,
+
+      country: country,
+      examination: examination,
+      grade: grade,
+      year: year,
+      medium: medium,
+      slug: slug,
+      section: section,
+      type: type,
+      category: category,
+      keywords: keywords,
+
       userId: "6717bf00391027592347633a",
     },
   });

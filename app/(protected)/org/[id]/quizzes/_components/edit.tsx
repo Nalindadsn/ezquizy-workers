@@ -57,6 +57,17 @@ const EditQuiz = ({ id, data }: any) => {
     defaultValues: {
       name: data ? data?.name : undefined,
       description: data ? data?.description : undefined,
+
+      country: id ? id.initialData?.country : undefined,
+      examination: id ? id.initialData?.examination : undefined,
+      grade: id ? id.initialData?.grade : undefined,
+      year: id ? id.initialData?.year : undefined,
+      medium: id ? id.initialData?.medium : undefined,
+      slug: id ? id.initialData?.slug : undefined,
+      section: id ? id.initialData?.section : undefined,
+      type: id ? id.initialData?.type : undefined,
+      category: id ? id.initialData?.category : undefined,
+      keywords: id ? id.initialData?.keywords : undefined,
     },
   });
 
@@ -91,7 +102,7 @@ const EditQuiz = ({ id, data }: any) => {
             <Edit className="w-3 h-3" />{" "}
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="w-full overflow-scroll h-[90vh]">
           <DialogHeader>
             <DialogTitle>Create Quiz</DialogTitle>
             <DialogDescription>
@@ -142,6 +153,207 @@ const EditQuiz = ({ id, data }: any) => {
                   )}
                 />
               </div>
+
+              <div className="space-y-2">
+                <FormField
+                  control={form.control}
+                  name="country"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Country</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder=" country"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <FormField
+                  control={form.control}
+                  name="examination"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Examination</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder=" examination"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <FormField
+                  control={form.control}
+                  name="grade"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Grade</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder=" grade"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <FormField
+                  control={form.control}
+                  name="year"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Year</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder=" year"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <FormField
+                  control={form.control}
+                  name="medium"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>medium</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder=" medium"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <FormField
+                  control={form.control}
+                  name="slug"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Slug</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder=" slug"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <FormField
+                  control={form.control}
+                  name="section"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Section</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder=" section"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <FormField
+                  control={form.control}
+                  name="type"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>type</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder=" type"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <FormField
+                  control={form.control}
+                  name="category"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Category</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder=" category"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <FormField
+                  control={form.control}
+                  name="keywords"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Keywords</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder=" keywords"
+                          disabled={isPending}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
               <FormError message={error} />
               <FormSuccess message={success} />
               {/* <Button

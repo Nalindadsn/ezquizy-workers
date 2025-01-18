@@ -3,12 +3,12 @@
 import * as z from "zod";
 
 import { db } from "@/lib/db";
-import { OrgCreateSchema } from "@/schemas";
+import { QuizCreateSchema } from "@/schemas";
 
 import { revalidatePath } from "next/cache";
 
 export const create = async (
-  values: z.infer<typeof OrgCreateSchema>,
+  values: z.infer<typeof QuizCreateSchema>,
   id: any
 ) => {
   console.log(values);
@@ -25,6 +25,17 @@ export const create = async (
     data: {
       name: name,
       description: description,
+      country: country,
+      examination: examination,
+      grade: grade,
+      year: year,
+      medium: medium,
+      slug: slug,
+      section: section,
+      type: type,
+      category: category,
+      keywords: keywords,
+
       userId: "6717bf00391027592347633a",
     },
   });

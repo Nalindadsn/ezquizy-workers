@@ -150,7 +150,17 @@ export const QuizCreateSchema = z.object({
 
   description: z.optional(z.string()),
 
+  id: z.optional(z.string()),
   country: z.optional(z.string()),
+  examination: z.optional(z.string()),
+  grade: z.optional(z.string()),
+  year: z.optional(z.string()),
+  medium: z.optional(z.string()),
+  slug: z.optional(z.string()),
+  section: z.optional(z.string()),
+  type: z.optional(z.string()),
+  category: z.optional(z.string()),
+  keywords: z.optional(z.string()),
 });
 
 export const LanguagesSchema = z.object({
