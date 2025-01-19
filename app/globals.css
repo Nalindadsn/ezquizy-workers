@@ -98,7 +98,9 @@
     background-color: white !important;
     opacity: 1 !important;
   }
-
+code{
+  background-color: #ccc;
+}
   .todo-item {
     display: flex;
     justify-content: space-between;
