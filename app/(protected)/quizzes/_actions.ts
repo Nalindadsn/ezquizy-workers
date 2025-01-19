@@ -35,6 +35,9 @@ export async function GetPokemons({
 
     skip: offset,
     take: limit,
+    orderBy: {
+      atNo: "desc",
+    },
   });
 
   // console.log(data)
