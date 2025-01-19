@@ -66,7 +66,7 @@ const page = async ({ params, searchParams }: any) => {
       <br />
       imageUrl: {items?.image}
       <br />
-      category:{items?.category}
+      category: {items?.category}
       <br />
       keywords: {items?.keywords}
       <br />
