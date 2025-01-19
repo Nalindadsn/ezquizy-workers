@@ -58,17 +58,16 @@ const EditQuiz = ({ id, data }: any) => {
       atNo: data ? data?.atNo : undefined,
       name: data ? data?.name : undefined,
       description: data ? data?.description : undefined,
-
-      country: id ? id.initialData?.country : undefined,
-      examination: id ? id.initialData?.examination : undefined,
-      grade: id ? id.initialData?.grade : undefined,
-      year: id ? id.initialData?.year : undefined,
-      medium: id ? id.initialData?.medium : undefined,
-      slug: id ? id.initialData?.slug : undefined,
-      section: id ? id.initialData?.section : undefined,
-      type: id ? id.initialData?.type : undefined,
-      category: id ? id.initialData?.category : undefined,
-      keywords: id ? id.initialData?.keywords : undefined,
+      country: data ? data?.country : undefined,
+      examination: data ? data?.examination : undefined,
+      grade: data ? data?.grade : undefined,
+      year: data ? data?.year : undefined,
+      medium: data ? data?.medium : undefined,
+      slug: data ? data?.slug : undefined,
+      section: data ? data?.section : undefined,
+      type: data ? data?.type : undefined,
+      category: data ? data?.category : undefined,
+      keywords: data ? data?.keywords : undefined,
     },
   });
 
@@ -184,7 +183,7 @@ const EditQuiz = ({ id, data }: any) => {
                       <FormControl>
                         <Input
                           {...field}
-                          placeholder=" country"
+                          placeholder="country"
                           disabled={isPending}
                         />
                       </FormControl>
