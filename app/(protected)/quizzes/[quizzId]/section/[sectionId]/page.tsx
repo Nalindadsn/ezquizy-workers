@@ -41,7 +41,6 @@ const page = async ({ params, searchParams }: any) => {
   // }
   return (
     <>
-      {" "}
       ---
       <br /># article-{items?.atNo ? items?.atNo : items?.id}.md <br />
       title: {items?.name}
