@@ -45,6 +45,7 @@ const page = async ({ params, searchParams }: any) => {
   return (
     <>
       <DownloadButton data={items} />
+      <hr />
       ---
       <br /># article-{items?.atNo ? items?.atNo : items?.id}.md <br />
       title: {items?.name}
