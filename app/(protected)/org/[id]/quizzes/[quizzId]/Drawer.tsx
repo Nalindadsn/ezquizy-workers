@@ -287,7 +287,6 @@ export function DrawerSec({
                                           ></React.Suspense>
                                           <div className="mb-2 flex gap-2">
                                             <CircleCheck />
-
                                             {/* -----|{res}|-
 {funReplace(y?.name, "SIGMA")} */}
                                             <div

@@ -241,23 +241,25 @@ const Add = ({
                             className="min-h-[500px]"
                           />
                         ) : (
-                          <MinimalTiptapEditor
-                            {...field}
-                            throttleDelay={2000}
-                            className={cn("w-full", {
-                              "border-destructive focus-within:border-destructive":
-                                form.formState.errors.name,
-                            })}
-                            editorContentClassName="p-5"
-                            output="html"
-                            placeholder="Type your name here..."
-                            autofocus={true}
-                            immediatelyRender={true}
-                            editable={true}
-                            injectCSS={true}
-                            shouldRerenderOnTransaction={false}
-                            editorClassName="focus:outline-none"
-                          />
+                          <>
+                            {JSON.stringify(field)}
+                            <MinimalTiptapEditor
+                              throttleDelay={2000}
+                              className={cn("w-full", {
+                                "border-destructive focus-within:border-destructive":
+                                  form.formState.errors.name,
+                              })}
+                              editorContentClassName="p-5"
+                              output="html"
+                              placeholder="Type your name here..."
+                              autofocus={true}
+                              immediatelyRender={true}
+                              editable={true}
+                              injectCSS={true}
+                              shouldRerenderOnTransaction={false}
+                              editorClassName="focus:outline-none"
+                            />
+                          </>
                         )}
                       </FormControl>
                       <FormMessage />
