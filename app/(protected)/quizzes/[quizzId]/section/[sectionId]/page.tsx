@@ -70,7 +70,7 @@ const page = async ({ params, searchParams }: any) => {
       keywords: {items?.keywords}
       <br />
       questions:
-      <pre className="">{JSON.stringify(items, null, 2)}</pre>
+      {JSON.stringify(items, null, 2)}
     </>
   );
 };

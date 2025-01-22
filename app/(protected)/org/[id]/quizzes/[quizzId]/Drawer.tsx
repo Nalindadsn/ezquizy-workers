@@ -226,6 +226,16 @@ export function DrawerSec({
                                       <Badge>{index + 1}</Badge> Question |{" "}
                                       {x?.id}{" "}
                                     </div>
+                                    <Button
+                                      variant="link"
+                                      className="underline text-white"
+                                      onClick={() =>
+                                        setDrawerValues("option", i, x)
+                                      }
+                                    >
+                                      <Plus className="w-3 h-3" />
+                                      More Options
+                                    </Button>
                                   </div>
 
                                   {x.questionOptions.map(
