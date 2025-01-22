@@ -131,6 +131,13 @@ export default function PokemonCard({ data, orgId }: IPokemon) {
 
                   <DeleteSection todo={x?.id} varient="small" />
                   <Button asChild className="h-6 p-0 px-2">
+                    <Link href={`/quizzes/${data?.id}/section/${x?.id}`}>
+                      {/* {`/org/${orgId}/quizzes/${data?.id}/section/${x?.id}`}
+                {`/quizzes/${data?.id}`} */}
+                      mdx
+                    </Link>
+                  </Button>
+                  <Button asChild className="h-6 p-0 px-2">
                     <Link
                       href={`/org/${orgId}/quizzes/${data?.id}?section=${x?.id}`}
                     >

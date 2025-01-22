@@ -1,4 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { fetchById } from "../../../actions/list";
+import DownloadButton from "./DownloadButton";
 
 export const dynamic = "force-dynamic";
 
@@ -39,8 +41,10 @@ const page = async ({ params, searchParams }: any) => {
 
   // questions: {}
   // }
+
   return (
     <>
+      <DownloadButton data={items} />
       ---
       <br /># article-{items?.atNo ? items?.atNo : items?.id}.md <br />
       title: {items?.name}
