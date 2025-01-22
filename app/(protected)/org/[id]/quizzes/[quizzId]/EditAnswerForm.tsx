@@ -107,7 +107,18 @@ const EditAnswerForm = (props: any) => {
     >
       <div className="flex gap-2 items-center mt-3">
         <div className="w-full">
-          <Editor name="name" value={html} onChange={handleInputChange} />
+          {/* <input
+            type="text"
+            placeholder="Add an answer"
+            className="p-2"
+            value={answer.name}
+            onChange={handleInputChange}
+          /> */}
+          <Editor
+            name="name"
+            value={answer.name}
+            onChange={handleInputChange}
+          />
         </div>
         <div>
           {props.editing ? (
