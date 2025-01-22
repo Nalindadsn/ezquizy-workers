@@ -294,14 +294,14 @@ const Add = ({
           <div className="mb-2">
             <div className="w-full flex justify-between items-center">
               <span className="text-gray-600">Latest added question</span>
-              <Button
+              {/* <Button
                 className="mt-5"
                 onClick={() => {
                   setCreatedData(null);
                 }}
               >
                 Add new question
-              </Button>
+              </Button> */}
             </div>
           </div>
           {/* {JSON.stringify(createdData)}<hr/>

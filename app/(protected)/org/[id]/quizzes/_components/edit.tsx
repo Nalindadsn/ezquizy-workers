@@ -55,19 +55,19 @@ const EditQuiz = ({ id, data }: any) => {
   const form = useForm<z.infer<typeof QuizCreateSchema>>({
     resolver: zodResolver(QuizCreateSchema),
     defaultValues: {
-      atNo: data ? data?.atNo : undefined,
-      name: data ? data?.name : undefined,
-      description: data ? data?.description : undefined,
-      country: data ? data?.country : undefined,
-      examination: data ? data?.examination : undefined,
-      grade: data ? data?.grade : undefined,
-      year: data ? data?.year : undefined,
-      medium: data ? data?.medium : undefined,
-      slug: data ? data?.slug : undefined,
-      section: data ? data?.section : undefined,
-      type: data ? data?.type : undefined,
-      category: data ? data?.category : undefined,
-      keywords: data ? data?.keywords : undefined,
+      atNo: data?.atNo == null || "" ? "" : data?.atNo,
+      name: data?.name == null || "" ? "" : data?.name,
+      description: data?.description == null || "" ? "" : data?.description,
+      country: data?.country == null || "" ? "" : data?.country,
+      examination: data?.examination == null || "" ? "" : data?.examination,
+      grade: data?.grade == null || "" ? "" : data?.grade,
+      year: data?.year == null || "" ? "" : data?.year,
+      medium: data?.medium == null || "" ? "" : data?.medium,
+      slug: data?.slug == null || "" ? "" : data?.slug,
+      section: data?.section == null || "" ? "" : data?.section,
+      type: data?.type == null || "" ? "" : data?.type,
+      category: data?.category == null || "" ? "" : data?.category,
+      keywords: data?.keywords == null || "" ? "" : data?.keywords,
     },
   });
 
@@ -104,7 +104,7 @@ const EditQuiz = ({ id, data }: any) => {
         </DialogTrigger>
         <DialogContent className="w-full overflow-scroll h-[90vh]">
           <DialogHeader>
-            <DialogTitle>Create Quiz</DialogTitle>
+            <DialogTitle>Update Quiz</DialogTitle>
             <DialogDescription>
               {/* Make Pin to This profile here. Click save when youre done. */}
               {/* <div className=" p-1 bg-gray-800 text-white">Name: {data?.name}<br/>Nic: {data?.nic}<br/>Email: {data?.email}</div>  */}
