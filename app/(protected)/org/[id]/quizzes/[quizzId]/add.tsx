@@ -241,25 +241,23 @@ const Add = ({
                             className="min-h-[500px]"
                           />
                         ) : (
-                          <>
-                            {JSON.stringify(field)}
-                            <MinimalTiptapEditor
-                              throttleDelay={2000}
-                              className={cn("w-full", {
-                                "border-destructive focus-within:border-destructive":
-                                  form.formState.errors.name,
-                              })}
-                              editorContentClassName="p-5"
-                              output="html"
-                              placeholder="Type your name here..."
-                              autofocus={true}
-                              immediatelyRender={true}
-                              editable={true}
-                              injectCSS={true}
-                              shouldRerenderOnTransaction={false}
-                              editorClassName="focus:outline-none"
-                            />
-                          </>
+                          <MinimalTiptapEditor
+                            {...field}
+                            throttleDelay={2000}
+                            className={cn("w-full", {
+                              "border-destructive focus-within:border-destructive":
+                                form.formState.errors.name,
+                            })}
+                            editorContentClassName="p-5"
+                            output="html"
+                            placeholder="Type your name here..."
+                            autofocus={true}
+                            immediatelyRender={true}
+                            editable={true}
+                            injectCSS={true}
+                            shouldRerenderOnTransaction={false}
+                            editorClassName="focus:outline-none"
+                          />
                         )}
                       </FormControl>
                       <FormMessage />
@@ -280,12 +278,13 @@ const Add = ({
               <Button
                 disabled={isPending}
                 type="submit"
-                // className="fixed"
+                className="bg-orange-600"
               >
                 {isPending && (
                   <Loader2 className="h-3 w-3 animate-spin text-white" />
                 )}
-                Add new quizz
+
+                {type == "new" ? "Add new question" : "Update question"}
               </Button>
             </form>
           </Form>
